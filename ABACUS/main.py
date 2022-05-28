@@ -7,7 +7,6 @@ root.attributes('-fullscreen', True)
 
 menu = Menu(root)
 
-
 root.mainloop()
 
 def iesire(root):

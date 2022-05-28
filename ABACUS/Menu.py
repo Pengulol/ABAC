@@ -1,17 +1,17 @@
 import tkinter as tk
 from tkinter import *
-
+from Bila import Bila
 from Abac import Abac
 
 class Menu:
 
     def __init__(self , root):
 
+        self.root=root
+        self.canvas = tk.Canvas(root,  bg="DodgerBlue3")
+        self.canvas.pack(fill="both",expand=True)
 
-        canvas = tk.Canvas(root,  bg="DodgerBlue3")
-        canvas.pack(fill="both",expand=True)
-
-        frame = tk.Frame(canvas)
+        frame = tk.Frame(self.canvas)
 
         self.buttonStart = Button(frame, text="START",command = root.quit)
         self.buttonStart.config(width = 50 , height = 5 )
@@ -25,4 +25,4 @@ class Menu:
 
         frame.place(anchor = NW)
 
-        Abac(canvas)
+        Abac(self.canvas)
