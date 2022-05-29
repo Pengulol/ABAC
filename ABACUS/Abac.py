@@ -43,8 +43,14 @@ class Abac:
 
 
 
-    def setareBile(self,nrTeava,nrBile):
-        self.VectorTevi[nrTeava].moveBalls(10-nrBile)
+    def setareNumar(self,numar):
+        aux1 = numar
+        teavaCurenta = 9
+        while aux1 > 0:
+            bilaDeMutat = 10-aux1 % 10
+            self.VectorTevi[teavaCurenta].moveBalls(bilaDeMutat)
+            teavaCurenta = teavaCurenta - 1
+            aux1 = int(aux1 / 10)
 
     def resetBara(self, numarBara):
         if self.VectorTevi[numarBara].VectorBile[9].isMoved:

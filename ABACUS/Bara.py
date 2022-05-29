@@ -19,14 +19,14 @@ class Bara:
             self.VectorBile.append(a)
 
 
-    def moveBalls(self, nrBila):
+    def moveBalls(self, pozBilaStart):
 
-        if self.VectorBile[nrBila].isMoved:
-            for x in range(nrBila, -1, -1):
+        if self.VectorBile[pozBilaStart].isMoved:
+            for x in range(pozBilaStart, -1, -1):
                 if self.VectorBile[x].isMoved:
                     self.VectorBile[x].moveLeft()
 
         else:
-            for x in range(nrBila, 10, +1):
+            for x in range(pozBilaStart, 10, +1):
                 if not self.VectorBile[x].isMoved:
                     self.VectorBile[x].moveRight()
