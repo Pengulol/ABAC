@@ -6,11 +6,11 @@ class Abac:
 
 
 
-
-    def __init__ (self, canvas):
+    def __init__ (self,canvas):
         X1 = 730
         X2 = 1570
         Y = 140
+
         self.canvas=canvas
         self.canvas.create_rectangle(X1-30, 100, X1, 1050, fill = "#90453A")
         self.canvas.create_rectangle(X2, 100, X2 + 30, 1050, fill="#90453A")
@@ -31,11 +31,11 @@ class Abac:
             y=event.y
             for bara in self.VectorTevi:
                 if y < bara.centerline + 35 and y > bara.centerline - 35 and x < bara.X2 and x > bara.X1:
-                    print(bara.centerline)
+
                     for bila in bara.VectorBile:
                         if x > bila.X and x < bila.X + bila.diametru and y > bila.Y and y < bila.Y + bila.diametru:
                             print(bila.nrBara)
-                            print(bila.nrBila)
+
                             bara.moveBalls( bila.nrBila)
                             break
                     break

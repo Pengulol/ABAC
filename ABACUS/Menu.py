@@ -23,9 +23,9 @@ class Menu:
         self.Result = Label(self.frame1, textvariable=self.text)
         self.Result.config(width=50, height=5)
 
-        self.button1 = Button(self.frameCalcul, text="COMPUTE", command=self.computef)
-        self.button1.config(width=20)
-        self.button1.pack(pady=10, side=TOP)
+        self.buttonCompute = Button(self.frameCalcul, text="COMPUTE", command=self.computef)
+        self.buttonCompute.config(width=20)
+        self.buttonCompute.pack(pady=10, side=TOP)
 
         self.button2 = Button(self.frame1, text="RESULT", command=self.result)
         self.button2.config(width=50, height=5)
@@ -53,6 +53,11 @@ class Menu:
         self.alDoileaOperand_lable.pack(side=LEFT)
         self.frameDoi.pack(side=TOP)
 
+
+
+
+
+
         self.optiune = StringVar()
         self.optiune.set("+")
 
@@ -61,9 +66,16 @@ class Menu:
 
         self.eroare = Label(self.frameCalcul, text='')
         self.eroare.pack(side=TOP)
+
+        self.var = tk.IntVar()
+        self.buttonNext=Button(self.frameCalcul,text="-->",command=lambda:self.var.set(1))
+        self.buttonNext.pack(side=TOP)
+
         self.frameCalcul.pack(side=LEFT)
 
-        self.abac = Abac(self.canvas)
+        self.abac = Abac( self.canvas)
+
+
 
     def result(self):
 
@@ -76,24 +88,69 @@ class Menu:
             inc = inc * 10
         self.text.set("RESULT:" + str(res))
 
+    def adaugareNumarInversat(self, numar, nrCifre):
+        nrTeava = 10 - nrCifre
+        print(numar)
+        while (nrTeava < 10):
+            cifraAux = numar % 10
+            bile = self.abac.VectorTevi[nrTeava].numberOfMovedBalls()
+            suma=cifraAux + bile
+            if suma >= 10:
+                self.buttonNext.wait_variable(self.var)
+                suma = suma - 10
+                self.abac.VectorTevi[nrTeava].moveBalls(0)
+                print("astept")
+                self.buttonNext.wait_variable(self.var)
+                self.abac.repair()
+                print("gata")
+                self.buttonNext.wait_variable(self.var)
+                while suma > 0:
+                    self.abac.VectorTevi[nrTeava].addBall()
+                    suma = suma - 1
+            else:
+                self.buttonNext.wait_variable(self.var)
+                while cifraAux > 0:
+
+                    self.abac.VectorTevi[nrTeava].addBall()
+                    cifraAux = cifraAux - 1
 
             numar = int(numar/10)
 
+            nrTeava = nrTeava+1
+        self.eroare.config(text="Final apasa pe result")
 
 
 
 
+    def invNumar(self,numar):
+        aux=0
+        while numar>0:
+            aux=aux*10+int(numar%10)
+            numar=int(numar/10)
+        return aux
+
+    def cifreNumar(self,numar):
+        nrcifre=0
+        while numar>0:
+            nrcifre=nrcifre+1
+            numar=int(numar/10)
+        return nrcifre
 
 
 
 
     def adunare(self, op1, op2):
-        x = op1 + op2
+        self.abac.reset()
         self.abac.setareNumar(op1)
 
+        a = self.invNumar(op2)
+        b = self.cifreNumar(op2)
+        self.adaugareNumarInversat(a,b)
 
 
-        print(x)
+
+
+
 
     def scadere(self, op1, op2):
         self.abac.VectorTevi[3].addBall()
@@ -118,10 +175,13 @@ class Menu:
 
     def computef(self):
         self.abac.reset()
+        self.buttonCompute.config(state=DISABLED)
+        self.dropbox.config(state=DISABLED)
         try:
             op1 = int(self.primulOperand.get())
             op2 = int(self.alDoileaOperand.get())
             self.eroare.config(text="")
+
 
         except:
             self.eroare.config(text="please insert numbers")
@@ -130,6 +190,9 @@ class Menu:
             self.buttonCompute.config(state=NORMAL)
             self.dropbox.config(state=NORMAL)
             return
+
+
+
         if op1 < 0 or op2 < 0:
             self.eroare.config(text="please insert natural numbers")
             self.primulOperand.delete(0, END)
@@ -138,5 +201,10 @@ class Menu:
             self.buttonCompute.config(state=NORMAL)
             return
 
+
+
+
         opt = self.optiune.get()
         self.switch(opt, op1, op2)
+        self.buttonCompute.config(state=NORMAL)
+        self.dropbox.config(state=NORMAL)
