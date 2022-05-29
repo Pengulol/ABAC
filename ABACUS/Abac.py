@@ -52,6 +52,7 @@ class Abac:
             teavaCurenta = teavaCurenta - 1
             aux1 = int(aux1 / 10)
 
+
     def resetBara(self, numarBara):
         if self.VectorTevi[numarBara].VectorBile[9].isMoved:
             self.VectorTevi[numarBara].moveBalls(9)

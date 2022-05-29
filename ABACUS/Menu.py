@@ -87,9 +87,11 @@ class Menu:
 
 
 
+
     def adunare(self, op1, op2):
         x = op1 + op2
         self.abac.setareNumar(op1)
+
 
 
 
@@ -113,6 +115,7 @@ class Menu:
     def switch(self, optiune, op1, op2):
         if optiune == "+":
             self.adunare(op1, op2)
+
         elif optiune == "-":
             self.scadere(op1, op2)
         elif optiune == "*":
