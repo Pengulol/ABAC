@@ -252,10 +252,7 @@ class Menu:
 
     def impartire(self, op1, op2):
         self.abac.toggleImpartire = True
-        if op1 < op2:
-            aux = op1
-            op1 = op2
-            op2 = aux
+
         self.abac.setareNumarSus(op1)
         while op1 >= op2:
             self.buttonNext.wait_variable(self.var)
