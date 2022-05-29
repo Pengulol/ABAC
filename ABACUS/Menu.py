@@ -114,10 +114,62 @@ class Menu:
             numar = int(numar/10)
 
             nrTeava = nrTeava+1
-        self.eroare.config(text="Final apasa pe result")
 
+    def scadereNumarInversat(self, numar, nrCifre):
+        nrTeava = 10 - nrCifre
 
+        while (nrTeava < 10):
+            cifraAux = numar % 10
+            bile = self.abac.VectorTevi[nrTeava].numberOfMovedBalls()
+            diferenta = bile - cifraAux
+            if diferenta < 0:
 
+                if not self.abac.VectorTevi[nrTeava].isEmpty():
+                    self.buttonNext.wait_variable(self.var)
+                    self.abac.VectorTevi[nrTeava].moveBalls(9)
+                self.buttonNext.wait_variable(self.var)
+
+                nrTeavaAux = nrTeava - 1
+                while self.abac.VectorTevi[nrTeavaAux].isEmpty():
+                    self.abac.VectorTevi[nrTeavaAux].moveBalls(1)
+                    self.buttonNext.wait_variable(self.var)
+                    nrTeavaAux = nrTeavaAux - 1
+
+                self.abac.VectorTevi[nrTeavaAux].removeBall()
+                self.buttonNext.wait_variable(self.var)
+                diferenta = 10 + diferenta
+                for x in range(0, diferenta):
+                    self.abac.VectorTevi[nrTeava].addBall()
+
+            else:
+                self.buttonNext.wait_variable(self.var)
+                for x in range(0, cifraAux):
+                    self.abac.VectorTevi[nrTeava].removeBall()
+            numar = int(numar/10)
+            nrTeava = nrTeava + 1
+
+    def scadereSus(self,nrScazator):
+        teavaCurenta=0
+        while nrScazator>0:
+            if self.abac.VectorTevi[teavaCurenta].isEmpty():
+                self.abac.VectorTevi[teavaCurenta].moveBalls(0)
+                auxTeava=teavaCurenta+1
+                while self.abac.VectorTevi[auxTeava].isEmpty():
+                    self.abac.VectorTevi[auxTeava].moveBalls(1)
+                    auxTeava=auxTeava+1
+                self.abac.VectorTevi[auxTeava].removeBall()
+                self.buttonNext.wait_variable(self.var)
+            self.abac.VectorTevi[teavaCurenta].removeBall()
+            nrScazator=nrScazator-1
+
+    def resetareButoane(self):
+        self.buttonCompute.config(state=NORMAL)
+        self.dropbox.config(state=NORMAL)
+        self.buttonExit.config(state=NORMAL)
+        self.primulOperand.config(state=NORMAL)
+        self.alDoileaOperand.config(state=NORMAL)
+        self.buttonResult.config(state=NORMAL)
+        self.abac.toggleMouse = True
 
     def invNumar(self,numar):
         aux=0
@@ -151,7 +203,23 @@ class Menu:
         self.eroare.config(text="Final apasa pe result")
 
     def inmultire(self, op1, op2):
-        self.abac.VectorTevi[3].removeBall()
+        if op1<op2:
+            aux=op1
+            op1=op2
+            op2=aux
+        self.abac.setareNumar(op1)
+        self.abac.setareNumarSus(op2)
+        a = self.invNumar(op1)
+        b = self.cifreNumar(op1)
+        op2 = op2 - 1
+        self.buttonNext.wait_variable(self.var)
+        self.abac.VectorTevi[0].removeBall()
+        while op2 > 0:
+            op2 = op2-1
+            self.buttonNext.wait_variable(self.var)
+            self.scadereSus(1)
+            self.adaugareNumarInversat(a,b)
+
 
     def impartire(self, op1, op2):
 
@@ -170,8 +238,13 @@ class Menu:
 
     def computef(self):
         self.abac.reset()
-        self.buttonCompute.config(state=DISABLED)
+        self.abac.toggleMouse=False
+        self.buttonCompute.config(state="DISABLED")
         self.dropbox.config(state=DISABLED)
+        self.buttonExit.config(state=DISABLED)
+        self.primulOperand.config(state=DISABLED)
+        self.alDoileaOperand.config(state=DISABLED)
+        self.buttonResult.config(state=DISABLED)
         try:
             op1 = int(self.primulOperand.get())
             op2 = int(self.alDoileaOperand.get())
@@ -200,4 +273,4 @@ class Menu:
         opt = self.optiune.get()
         self.switch(opt, op1, op2)
         self.buttonCompute.config(state=NORMAL)
-        self.dropbox.config(state=NORMAL)
+        self.resetareButoane()

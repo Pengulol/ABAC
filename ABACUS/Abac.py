@@ -11,6 +11,7 @@ class Abac:
         X2 = 1570
         Y = 140
 
+        self.toggleMouse=True
         self.canvas=canvas
         self.canvas.create_rectangle(X1-30, 100, X1, 1050, fill = "#90453A")
         self.canvas.create_rectangle(X2, 100, X2 + 30, 1050, fill="#90453A")
@@ -44,7 +45,16 @@ class Abac:
         self.canvas.bind('<Button-1>', onclick)
 
 
+    def setareNumarSus(self, numar):
 
+        aux = numar
+        teavaCurenta = 0
+        while aux > 0:
+            nrBile = aux%10
+            for x in range(0,nrBile, +1):
+                self.VectorTevi[teavaCurenta].addBall()
+            aux = int(aux/10)
+            teavaCurenta = teavaCurenta+1
 
 
 
