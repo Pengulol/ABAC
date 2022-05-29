@@ -27,18 +27,19 @@ class Abac:
 
 
         def onclick(event):
-            x=event.x
-            y=event.y
-            for bara in self.VectorTevi:
-                if y < bara.centerline + 35 and y > bara.centerline - 35 and x < bara.X2 and x > bara.X1:
+            if self.toggleMouse:
+                x = event.x
+                y = event.y
+                for bara in self.VectorTevi:
+                    if y < bara.centerline + 35 and y > bara.centerline - 35 and x < bara.X2 and x > bara.X1:
 
-                    for bila in bara.VectorBile:
-                        if x > bila.X and x < bila.X + bila.diametru and y > bila.Y and y < bila.Y + bila.diametru:
-                            print(bila.nrBara)
+                        for bila in bara.VectorBile:
+                            if x > bila.X and x < bila.X + bila.diametru and y > bila.Y and y < bila.Y + bila.diametru:
+                                print(bila.nrBara)
 
-                            bara.moveBalls( bila.nrBila)
-                            break
-                    break
+                                bara.moveBalls(bila.nrBila)
+                                break
+                        break
 
         self.canvas.bind('<Button-1>', onclick)
 
@@ -59,7 +60,7 @@ class Abac:
             aux = int(aux/10)
             teavaCurenta = teavaCurenta-1
 
-    def repair(self):
+    def repairAdunare(self):
         for numarBara in range(9,0,-1):
             if self.VectorTevi[numarBara].isFilled():
                 for x in range(0, 10 , + 1):
