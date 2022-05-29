@@ -10,6 +10,7 @@ class Menu:
 
     def __init__(self, root):
 
+
         self.root = root
         self.canvas = tk.Canvas(root, bg="DodgerBlue3")
         self.canvas.pack(fill="both", expand=True)
@@ -27,9 +28,9 @@ class Menu:
         self.buttonCompute.config(width=20)
         self.buttonCompute.pack(pady=10, side=TOP)
 
-        self.button2 = Button(self.frame1, text="RESULT", command=self.result)
-        self.button2.config(width=50, height=5)
-        self.button2.pack(side=TOP)
+        self.buttonResult = Button(self.frame1, text="RESULT", command=self.result)
+        self.buttonResult.config(width=50, height=5)
+        self.buttonResult.pack(side=TOP)
 
         self.Result.pack(side=TOP)
 
@@ -75,8 +76,6 @@ class Menu:
 
         self.abac = Abac( self.canvas)
 
-
-
     def result(self):
 
         res = 0
@@ -90,7 +89,7 @@ class Menu:
 
     def adaugareNumarInversat(self, numar, nrCifre):
         nrTeava = 10 - nrCifre
-        print(numar)
+
         while (nrTeava < 10):
             cifraAux = numar % 10
             bile = self.abac.VectorTevi[nrTeava].numberOfMovedBalls()
@@ -99,10 +98,8 @@ class Menu:
                 self.buttonNext.wait_variable(self.var)
                 suma = suma - 10
                 self.abac.VectorTevi[nrTeava].moveBalls(0)
-                print("astept")
                 self.buttonNext.wait_variable(self.var)
-                self.abac.repair()
-                print("gata")
+                self.abac.repairAdunare()
                 self.buttonNext.wait_variable(self.var)
                 while suma > 0:
                     self.abac.VectorTevi[nrTeava].addBall()
@@ -136,9 +133,6 @@ class Menu:
             numar=int(numar/10)
         return nrcifre
 
-
-
-
     def adunare(self, op1, op2):
         self.abac.reset()
         self.abac.setareNumar(op1)
@@ -146,20 +140,21 @@ class Menu:
         a = self.invNumar(op2)
         b = self.cifreNumar(op2)
         self.adaugareNumarInversat(a,b)
-
-
-
-
-
+        self.eroare.config(text="Final apasa pe result")
 
     def scadere(self, op1, op2):
-        self.abac.VectorTevi[3].addBall()
+        self.abac.reset()
+        self.abac.setareNumar(op1)
+        a = self.invNumar(op2)
+        b = self.cifreNumar(op2)
+        self.scadereNumarInversat(a,b)
+        self.eroare.config(text="Final apasa pe result")
 
     def inmultire(self, op1, op2):
         self.abac.VectorTevi[3].removeBall()
 
     def impartire(self, op1, op2):
-        self.abac.repair()
+
 
     def switch(self, optiune, op1, op2):
         if optiune == "+":
@@ -187,8 +182,7 @@ class Menu:
             self.eroare.config(text="please insert numbers")
             self.primulOperand.delete(0, END)
             self.alDoileaOperand.delete(0, END)
-            self.buttonCompute.config(state=NORMAL)
-            self.dropbox.config(state=NORMAL)
+            self.resetareButoane()
             return
 
 
@@ -197,8 +191,7 @@ class Menu:
             self.eroare.config(text="please insert natural numbers")
             self.primulOperand.delete(0, END)
             self.alDoileaOperand.delete(0, END)
-            self.dropbox.config(state=NORMAL)
-            self.buttonCompute.config(state=NORMAL)
+            self.resetareButoane()
             return
 
 
