@@ -35,20 +35,21 @@ class Abac:
                         if x > bila.X and x < bila.X + bila.diametru and y > bila.Y and y < bila.Y + bila.diametru:
                             print(bila.nrBara)
                             print(bila.nrBila)
-                            moveBalls(bila.nrBara, bila.nrBila)
+                            bara.moveBalls( bila.nrBila)
                             break
                     break
 
         self.canvas.bind('<Button-1>', onclick)
 
-        def moveBalls(nrBara, nrBila):
-            bara=self.VectorTevi[nrBara]
-            if bara.VectorBile[nrBila].isMoved:
-                for x in range(nrBila,-1,-1):
-                    if bara.VectorBile[x].isMoved:
-                        bara.VectorBile[x].moveLeft()
 
-            else:
-                for x in range(nrBila,10,+1):
-                    if not bara.VectorBile[x].isMoved:
-                        bara.VectorBile[x].moveRight()
+
+    def setareBile(self,nrTeava,nrBile):
+        self.VectorTevi[nrTeava].moveBalls(10-nrBile)
+
+    def resetBara(self, numarBara):
+        if self.VectorTevi[numarBara].VectorBile[9].isMoved:
+            self.VectorTevi[numarBara].moveBalls(9)
+
+    def reset(self):
+        for bara in self.VectorTevi:
+            self.resetBara(bara.numarbara)
