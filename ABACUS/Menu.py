@@ -77,20 +77,11 @@ class Menu:
         self.text.set("RESULT:" + str(res))
 
 
-    def pregatireAdunare(self,op1):
-        aux1=op1
-        teavaCurenta=9
-        while aux1>0:
-            bilaDeMutat=aux1%10
-            self.abac.setareBile(teavaCurenta,bilaDeMutat)
-            teavaCurenta=teavaCurenta-1
-            aux1=int(aux1/10)
 
 
 
-    def operareScadere(self, op1, op2):
-        aux = op1
-        teavaCurenta=9
+
+
 
 
 
@@ -98,7 +89,7 @@ class Menu:
 
     def adunare(self, op1, op2):
         x = op1 + op2
-        self.pregatireAdunare(op1)
+        self.abac.setareNumar(op1)
 
 
 
