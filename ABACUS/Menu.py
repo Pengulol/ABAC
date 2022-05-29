@@ -76,6 +76,31 @@ class Menu:
 
         self.abac = Abac( self.canvas)
 
+    def resultSUS(self):
+        res = 0
+        inc = 1
+        for x in range(0, 7 , +1):
+            for bila in self.abac.VectorTevi[x].VectorBile:
+                if bila.isMoved == True:
+                    res = res + inc
+            inc = inc*10
+        return res
+
+    def resultJOS(self):
+        res = 0
+        inc = 1
+        for x in range(9, 6, -1):
+            for bila in self.abac.VectorTevi[x].VectorBile:
+                if bila.isMoved == True:
+                    res = res + inc
+            inc = inc * 10
+        return res
+
+    def resultImpartire(self):
+        resSus=self.resultSUS()
+        resJos=self.resultJOS()
+        self.text.set("RESULT:" + str(resJos) +" Rest:" + str(resSus))
+
     def result(self):
 
         res = 0
@@ -272,5 +297,5 @@ class Menu:
 
         opt = self.optiune.get()
         self.switch(opt, op1, op2)
-        self.buttonCompute.config(state=NORMAL)
+
         self.resetareButoane()

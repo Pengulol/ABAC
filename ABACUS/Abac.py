@@ -10,7 +10,7 @@ class Abac:
         X1 = 730
         X2 = 1570
         Y = 140
-
+        self.toggleImpartire = False
         self.toggleMouse=True
         self.canvas=canvas
         self.canvas.create_rectangle(X1-30, 100, X1, 1050, fill = "#90453A")
@@ -37,7 +37,7 @@ class Abac:
                         for bila in bara.VectorBile:
                             if x > bila.X and x < bila.X + bila.diametru and y > bila.Y and y < bila.Y + bila.diametru:
                                 print(bila.nrBara)
-
+                                self.toggleImpartire = False
                                 bara.moveBalls(bila.nrBila)
                                 break
                         break
