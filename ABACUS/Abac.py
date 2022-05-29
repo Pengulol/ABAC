@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from Bara import Bara
+
 class Abac:
 
 
@@ -43,14 +44,30 @@ class Abac:
 
 
 
-    def setareNumar(self,numar):
-        aux1 = numar
+
+
+
+
+    def setareNumar(self, numar):
+
+        aux = numar
         teavaCurenta = 9
-        while aux1 > 0:
-            bilaDeMutat = 10-aux1 % 10
-            self.VectorTevi[teavaCurenta].moveBalls(bilaDeMutat)
-            teavaCurenta = teavaCurenta - 1
-            aux1 = int(aux1 / 10)
+        while aux > 0:
+            nrBile = aux%10
+            for x in range(0,nrBile, +1):
+                self.VectorTevi[teavaCurenta].addBall()
+            aux = int(aux/10)
+            teavaCurenta = teavaCurenta-1
+
+    def repair(self):
+        for numarBara in range(9,0,-1):
+            if self.VectorTevi[numarBara].isFilled():
+                for x in range(0, 10 , + 1):
+                    self.VectorTevi[numarBara].removeBall()
+                self.VectorTevi[numarBara-1].addBall()
+
+
+
 
     def resetBara(self, numarBara):
         if self.VectorTevi[numarBara].VectorBile[9].isMoved:
@@ -59,3 +76,5 @@ class Abac:
     def reset(self):
         for bara in self.VectorTevi:
             self.resetBara(bara.numarbara)
+
+

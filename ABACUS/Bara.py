@@ -18,6 +18,40 @@ class Bara:
 
             self.VectorBile.append(a)
 
+    def addBall(self):
+        for x in range(0, 10 , +1):
+
+            if (x == 9):
+
+                self.VectorBile[9].moveRight()
+
+                return
+            if (self.VectorBile[x].isMoved == True):
+                return
+
+            if (self.VectorBile[x+1].isMoved == True):
+                self.VectorBile[x].moveRight()
+                return
+
+    def isFilled(self):
+        return self.VectorBile[0].isMoved
+    def numberOfMovedBalls(self):
+        nr = 0
+        for x in range(0 , 10):
+            if self.VectorBile[x].isMoved:
+                nr = nr + 1
+        return nr
+    def removeBall(self):
+        for x in range(9, -1 , -1):
+            if(x == 0):
+                self.moveBalls(0)
+                return
+            if(not self.VectorBile[x].isMoved):
+                return
+            if(not self.VectorBile[x-1].isMoved):
+                self.VectorBile[x].moveLeft()
+                return
+
 
     def moveBalls(self, pozBilaStart):
 

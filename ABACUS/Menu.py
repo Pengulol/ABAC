@@ -77,7 +77,7 @@ class Menu:
         self.text.set("RESULT:" + str(res))
 
 
-
+            numar = int(numar/10)
 
 
 
@@ -96,19 +96,13 @@ class Menu:
         print(x)
 
     def scadere(self, op1, op2):
-        x = op1 - op2
-        if op1 < op2:
-            self.eroare.config(text="error: result is negative")
-            return
-        print(x)
+        self.abac.VectorTevi[3].addBall()
 
     def inmultire(self, op1, op2):
-        x = op1 * op2
-        print(x)
+        self.abac.VectorTevi[3].removeBall()
 
     def impartire(self, op1, op2):
-        x = op1 / op2
-        print(x)
+        self.abac.repair()
 
     def switch(self, optiune, op1, op2):
         if optiune == "+":
@@ -133,9 +127,15 @@ class Menu:
             self.eroare.config(text="please insert numbers")
             self.primulOperand.delete(0, END)
             self.alDoileaOperand.delete(0, END)
+            self.buttonCompute.config(state=NORMAL)
+            self.dropbox.config(state=NORMAL)
             return
         if op1 < 0 or op2 < 0:
             self.eroare.config(text="please insert natural numbers")
+            self.primulOperand.delete(0, END)
+            self.alDoileaOperand.delete(0, END)
+            self.dropbox.config(state=NORMAL)
+            self.buttonCompute.config(state=NORMAL)
             return
 
         opt = self.optiune.get()
