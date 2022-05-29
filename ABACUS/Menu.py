@@ -69,7 +69,7 @@ class Menu:
         self.eroare.pack(side=TOP)
 
         self.var = tk.IntVar()
-        self.buttonNext=Button(self.frameCalcul,text="-->",command=lambda:self.var.set(1))
+        self.buttonNext=Button(self.frameCalcul,text="-->",command=lambda:self.var.set(1),state=DISABLED)
         self.buttonNext.pack(side=TOP)
 
         self.frameCalcul.pack(side=LEFT)
@@ -102,15 +102,17 @@ class Menu:
         self.text.set("RESULT:" + str(resJos) +" Rest:" + str(resSus))
 
     def result(self):
-
-        res = 0
-        inc = 1
-        for x in range(9, -1, -1):
-            for bila in self.abac.VectorTevi[x].VectorBile:
-                if bila.isMoved == True:
-                    res = res + inc
-            inc = inc * 10
-        self.text.set("RESULT:" + str(res))
+        if not self.abac.toggleImpartire:
+            res = 0
+            inc = 1
+            for x in range(9, -1, -1):
+                for bila in self.abac.VectorTevi[x].VectorBile:
+                    if bila.isMoved == True:
+                        res = res + inc
+                inc = inc * 10
+            self.text.set("RESULT:" + str(res))
+        else:
+            self.resultImpartire()
 
     def adaugareNumarInversat(self, numar, nrCifre):
         nrTeava = 10 - nrCifre
@@ -194,6 +196,7 @@ class Menu:
         self.primulOperand.config(state=NORMAL)
         self.alDoileaOperand.config(state=NORMAL)
         self.buttonResult.config(state=NORMAL)
+        self.buttonNext.config(state=DISABLED)
         self.abac.toggleMouse = True
 
     def invNumar(self,numar):
@@ -244,10 +247,22 @@ class Menu:
             self.buttonNext.wait_variable(self.var)
             self.scadereSus(1)
             self.adaugareNumarInversat(a,b)
+        self.eroare.config(text="Final apasa pe result")
 
 
     def impartire(self, op1, op2):
-
+        self.abac.toggleImpartire = True
+        if op1 < op2:
+            aux = op1
+            op1 = op2
+            op2 = aux
+        self.abac.setareNumarSus(op1)
+        while op1 >= op2:
+            self.buttonNext.wait_variable(self.var)
+            self.scadereSus(op2)
+            self.adaugareNumarInversat(1,1)
+            op1 = op1 - op2
+        self.eroare.config(text="Final apasa pe result")
 
     def switch(self, optiune, op1, op2):
         if optiune == "+":
@@ -262,9 +277,11 @@ class Menu:
             print("something went wrong2")
 
     def computef(self):
+        self.abac.toggleImpartire = False
         self.abac.reset()
         self.abac.toggleMouse=False
-        self.buttonCompute.config(state="DISABLED")
+        self.buttonNext.config(state=NORMAL)
+        self.buttonCompute.config(state=DISABLED)
         self.dropbox.config(state=DISABLED)
         self.buttonExit.config(state=DISABLED)
         self.primulOperand.config(state=DISABLED)

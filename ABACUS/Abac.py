@@ -12,6 +12,7 @@ class Abac:
         Y = 140
         self.toggleImpartire = False
         self.toggleMouse=True
+
         self.canvas=canvas
         self.canvas.create_rectangle(X1-30, 100, X1, 1050, fill = "#90453A")
         self.canvas.create_rectangle(X2, 100, X2 + 30, 1050, fill="#90453A")
@@ -29,6 +30,7 @@ class Abac:
 
         def onclick(event):
             if self.toggleMouse:
+
                 x = event.x
                 y = event.y
                 for bara in self.VectorTevi:
@@ -39,6 +41,7 @@ class Abac:
                                 print(bila.nrBara)
                                 self.toggleImpartire = False
                                 bara.moveBalls(bila.nrBila)
+
                                 break
                         break
 
