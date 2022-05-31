@@ -35,7 +35,6 @@ class Bara:
 
             if self.VectorBile[x + 1].isMoved is True:
                 self.VectorBile[x].moveToRight()
-                self.VectorBile[x].isHighlighted = True
                 return
 
     def isEmpty(self):
@@ -55,13 +54,13 @@ class Bara:
         for x in range(9, -1, -1):
             if x == 0:
                 self.moveBalls(0)
-                self.VectorBile[x].isHighlighted = False
+
                 return
             if not self.VectorBile[x].isMoved:
                 return
             if not self.VectorBile[x - 1].isMoved:
                 self.VectorBile[x].moveToLeft()
-                self.VectorBile[x].isHighlighted = False
+
                 return
 
     def moveBalls(self, pozBilaStart):
@@ -70,11 +69,27 @@ class Bara:
             for x in range(pozBilaStart, -1, -1):
                 if self.VectorBile[x].isMoved:
                     self.VectorBile[x].moveToLeft()
-                    self.VectorBile[x].isHighlighted=False
+
 
         else:
             for x in range(pozBilaStart, 10, +1):
                 if not self.VectorBile[x].isMoved:
                     self.VectorBile[x].moveToRight()
-                    self.VectorBile[x].isHighlighted=True
+
+
+    def makeTransportLastMovedBall(self):
+        x = int(0)
+        while x < 10 and not self.VectorBile[x].isMoved:
+            x = x+1
+        if x != 10:
+            self.VectorBile[x].isTransport = True
+            self.VectorBile[x].changeColor()
+    def makeTransportLastUnMovedBall(self):
+        x = int(-1)
+        while x < 9 and not self.VectorBile[x+1].isMoved:
+            x = x+1
+
+
+        self.VectorBile[x].isTransport = True
+        self.VectorBile[x].changeColor()
 

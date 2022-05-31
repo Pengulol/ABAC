@@ -70,6 +70,11 @@ class Abac:
                 for x in range(0, 10, + 1):
                     self.VectorBare[numarBara].removeOneBall()
                 self.VectorBare[numarBara - 1].addOneBall()
+                self.VectorBare[numarBara - 1].makeTransportLastMovedBall()
+                self.lastTransportPlace = numarBara - 1
+
+
+
 
     def resetBara(self, numarBara):
         if self.VectorBare[numarBara].VectorBile[9].isMoved:

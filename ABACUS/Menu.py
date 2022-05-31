@@ -51,10 +51,10 @@ class Menu:
         self.frameDoi.pack(side=TOP)
 
         self.optiune = StringVar()
-        self.optiune.set("+")
-        self.dropbox = OptionMenu(self.frameCalcul, self.optiune, "+", "-", "*", "/")
-        self.dropbox.config(width=30)
-        self.dropbox.pack(pady=10,side=TOP)
+        self.optiune.set("adunare")
+        self.dropbox = OptionMenu(self.frameCalcul, self.optiune, "adunare", "scadere", "inmultire", "impartire")
+        self.dropbox.config(width=30, font=10)
+        self.dropbox.pack(pady=10, side=TOP)
 
         self.eroare = Label(self.frameCalcul, text='')
         self.eroare.pack(side=TOP)
@@ -170,7 +170,8 @@ class Menu:
                     nrBaraAux = nrBaraAux - 1
 
                 self.abac.VectorBare[nrBaraAux].removeOneBall()
-                self.abac.VectorBare[nrBaraAux].recolorBara()
+                self.abac.VectorBare[nrBaraAux].makeTransportLastUnMovedBall()
+
                 self.buttonNext.wait_variable(self.var)
                 diferenta = 10 + diferenta
 
@@ -202,8 +203,11 @@ class Menu:
                     nrBaraAux = nrBaraAux + 1
 
                 self.abac.VectorBare[nrBaraAux].removeOneBall()
-                self.abac.VectorBare[nrBaraAux].recolorBara()
+                self.abac.VectorBare[nrBaraAux].makeTransportLastUnMovedBall()
                 self.buttonNext.wait_variable(self.var)
+                self.abac.VectorBare[nrBaraAux].recolorBara()
+
+                self.abac.VectorBare[nrBara].moveBalls(0)
 
             self.abac.VectorBare[nrBara].removeOneBall()
             self.abac.VectorBare[nrBara].recolorBara()
