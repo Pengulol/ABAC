@@ -3,7 +3,7 @@ from Menu import Menu
 
 root = tk.Tk()
 root.title("Abacus")
-root.geometry("1920x1080")
+root.geometry("900x400")
 root.attributes('-fullscreen', True)
 
 menu = Menu(root)

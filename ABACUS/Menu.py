@@ -19,32 +19,32 @@ class Menu:
         self.text.set("RESULT:  -  ")
 
         self.buttonResult = Button(self.ResultSiExit, text="RESULT", command=self.result)
-        self.buttonResult.config(width=50, height=5)
+        self.buttonResult.config(width=40, height=5)
         self.buttonResult.pack(side=TOP)
 
         self.Result = Label(self.ResultSiExit, textvariable=self.text)
-        self.Result.config(width=50, height=5)
+        self.Result.config(width=40, height=5)
         self.Result.pack(side=TOP)
 
         self.buttonExit = Button(self.ResultSiExit, text="EXIT", command=root.quit)
-        self.buttonExit.config(width=50, height=5)
+        self.buttonExit.config(width=40, height=5)
         self.buttonExit.pack(side=TOP)
 
         self.ResultSiExit.place(anchor=NW)
 
         self.buttonCompute = Button(self.frameCalcul, text="COMPUTE", command=self.computef)
-        self.buttonCompute.config(width=20)
+        self.buttonCompute.config(width=40)
         self.buttonCompute.pack(pady=10, side=TOP)
 
         self.framePrim = Frame(self.frameCalcul)
-        self.primulOperand = Entry(self.framePrim, width=10)
+        self.primulOperand = Entry(self.framePrim, width=15)
         self.primulOperand.pack(side=RIGHT)
         self.primulOperand_lable = Label(self.framePrim, text="X = ")
         self.primulOperand_lable.pack(side=LEFT)
         self.framePrim.pack(side=TOP)
 
         self.frameDoi = Frame(self.frameCalcul)
-        self.alDoileaOperand = Entry(self.frameDoi, width=10)
+        self.alDoileaOperand = Entry(self.frameDoi, width=15)
         self.alDoileaOperand.pack(side=RIGHT)
         self.alDoileaOperand_lable = Label(self.frameDoi, text="Y = ")
         self.alDoileaOperand_lable.pack(side=LEFT)
@@ -53,13 +53,14 @@ class Menu:
         self.optiune = StringVar()
         self.optiune.set("+")
         self.dropbox = OptionMenu(self.frameCalcul, self.optiune, "+", "-", "*", "/")
-        self.dropbox.pack(side=TOP)
+        self.dropbox.config(width=30)
+        self.dropbox.pack(pady=10,side=TOP)
 
         self.eroare = Label(self.frameCalcul, text='')
         self.eroare.pack(side=TOP)
 
         self.var = tk.IntVar()
-        self.buttonNext = Button(self.frameCalcul, text="-->", command=lambda: self.var.set(1), state=DISABLED)
+        self.buttonNext = Button(self.frameCalcul, text="-->", width=30, command=lambda: self.var.set(1), state=DISABLED)
         self.buttonNext.pack(side=TOP)
 
         self.frameCalcul.pack(side=LEFT)
@@ -123,18 +124,23 @@ class Menu:
                 self.buttonNext.wait_variable(self.var)
                 suma = suma - 10
                 self.abac.VectorBare[nrBara].moveBalls(0)
+                self.abac.VectorBare[nrBara].recolorBara()
                 self.buttonNext.wait_variable(self.var)
                 self.abac.repairAdunare()
                 self.buttonNext.wait_variable(self.var)
 
                 while suma > 0:
                     self.abac.VectorBare[nrBara].addOneBall()
+                    self.abac.VectorBare[nrBara].recolorBara()
+
                     suma = suma - 1
             else:
                 self.buttonNext.wait_variable(self.var)
 
                 while cifraAux > 0:
                     self.abac.VectorBare[nrBara].addOneBall()
+                    self.abac.VectorBare[nrBara].recolorBara()
+
                     cifraAux = cifraAux - 1
 
             numar = int(numar / 10)
@@ -152,28 +158,32 @@ class Menu:
                 if not self.abac.VectorBare[nrBara].isEmpty():
                     self.buttonNext.wait_variable(self.var)
                     self.abac.VectorBare[nrBara].moveBalls(9)
+                    self.abac.VectorBare[nrBara].recolorBara()
 
                 self.buttonNext.wait_variable(self.var)
                 nrBaraAux = nrBara - 1
 
                 while self.abac.VectorBare[nrBaraAux].isEmpty():
                     self.abac.VectorBare[nrBaraAux].moveBalls(1)
+                    self.abac.VectorBare[nrBaraAux].recolorBara()
                     self.buttonNext.wait_variable(self.var)
                     nrBaraAux = nrBaraAux - 1
 
                 self.abac.VectorBare[nrBaraAux].removeOneBall()
+                self.abac.VectorBare[nrBaraAux].recolorBara()
                 self.buttonNext.wait_variable(self.var)
                 diferenta = 10 + diferenta
 
                 for x in range(0, diferenta):
                     self.abac.VectorBare[nrBara].addOneBall()
 
+                self.abac.VectorBare[nrBara].recolorBara()
             else:
                 self.buttonNext.wait_variable(self.var)
 
                 for x in range(0, cifraAux):
                     self.abac.VectorBare[nrBara].removeOneBall()
-
+            self.abac.VectorBare[nrBara].recolorBara()
             numar = int(numar / 10)
             nrBara = nrBara + 1
 
@@ -183,16 +193,20 @@ class Menu:
         while nrScazator > 0:
             if self.abac.VectorBare[nrBara].isEmpty():
                 self.abac.VectorBare[nrBara].moveBalls(0)
+                self.abac.VectorBare[nrBara].recolorBara()
                 nrBaraAux = nrBara + 1
 
                 while self.abac.VectorBare[nrBaraAux].isEmpty():
                     self.abac.VectorBare[nrBaraAux].moveBalls(1)
+                    self.abac.VectorBare[nrBaraAux].recolorBara()
                     nrBaraAux = nrBaraAux + 1
 
                 self.abac.VectorBare[nrBaraAux].removeOneBall()
+                self.abac.VectorBare[nrBaraAux].recolorBara()
                 self.buttonNext.wait_variable(self.var)
 
             self.abac.VectorBare[nrBara].removeOneBall()
+            self.abac.VectorBare[nrBara].recolorBara()
             nrScazator = nrScazator - 1
 
     def setareStareButoane(self, newState):
@@ -262,6 +276,7 @@ class Menu:
         op2 = op2 - 1
         self.buttonNext.wait_variable(self.var)
         self.abac.VectorBare[0].removeOneBall()
+        self.abac.VectorBare[0].recolorBara()
 
         while op2 > 0:
             op2 = op2 - 1

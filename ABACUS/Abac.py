@@ -30,9 +30,10 @@ class Abac:
 
                         for bila in bara.VectorBile:
                             if bila.X < x < bila.X + bila.diametru and bila.Y < y < bila.Y + bila.diametru:
-                                print(bila.nrBara)
+
                                 self.toggleImpartire = False
                                 bara.moveBalls(bila.nrBila)
+                                bara.recolorBara()
 
                                 break
                         break
@@ -48,6 +49,7 @@ class Abac:
             for x in range(0, nrBile, +1):
                 self.VectorBare[teavaCurenta].addOneBall()
             aux = int(aux / 10)
+            self.VectorBare[teavaCurenta].recolorBara()
             teavaCurenta = teavaCurenta + 1
 
     def setareNumarJos(self, numar):
@@ -59,6 +61,7 @@ class Abac:
             for x in range(0, nrBile, +1):
                 self.VectorBare[teavaCurenta].addOneBall()
             aux = int(aux / 10)
+            self.VectorBare[teavaCurenta].recolorBara()
             teavaCurenta = teavaCurenta - 1
 
     def repairAdunare(self):
@@ -71,6 +74,7 @@ class Abac:
     def resetBara(self, numarBara):
         if self.VectorBare[numarBara].VectorBile[9].isMoved:
             self.VectorBare[numarBara].moveBalls(9)
+            self.VectorBare[numarBara].recolorBara()
 
     def resetAbac(self):
         for bara in self.VectorBare:
