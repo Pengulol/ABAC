@@ -124,14 +124,15 @@ class Menu:
                 self.buttonNext.wait_variable(self.var)
                 suma = suma - 10
                 self.abac.VectorBare[nrBara].moveBalls(0)
-                self.abac.VectorBare[nrBara].recolorBara()
+
                 self.buttonNext.wait_variable(self.var)
                 self.abac.repairAdunare()
                 self.buttonNext.wait_variable(self.var)
+                self.abac.VectorBare[self.abac.lastTransportPlace].recolorBara()
 
                 while suma > 0:
                     self.abac.VectorBare[nrBara].addOneBall()
-                    self.abac.VectorBare[nrBara].recolorBara()
+
 
                     suma = suma - 1
             else:
@@ -139,7 +140,7 @@ class Menu:
 
                 while cifraAux > 0:
                     self.abac.VectorBare[nrBara].addOneBall()
-                    self.abac.VectorBare[nrBara].recolorBara()
+
 
                     cifraAux = cifraAux - 1
 
@@ -158,33 +159,35 @@ class Menu:
                 if not self.abac.VectorBare[nrBara].isEmpty():
                     self.buttonNext.wait_variable(self.var)
                     self.abac.VectorBare[nrBara].moveBalls(9)
-                    self.abac.VectorBare[nrBara].recolorBara()
+
 
                 self.buttonNext.wait_variable(self.var)
                 nrBaraAux = nrBara - 1
 
                 while self.abac.VectorBare[nrBaraAux].isEmpty():
                     self.abac.VectorBare[nrBaraAux].moveBalls(1)
-                    self.abac.VectorBare[nrBaraAux].recolorBara()
+
                     self.buttonNext.wait_variable(self.var)
                     nrBaraAux = nrBaraAux - 1
+
 
                 self.abac.VectorBare[nrBaraAux].removeOneBall()
                 self.abac.VectorBare[nrBaraAux].makeTransportLastUnMovedBall()
 
                 self.buttonNext.wait_variable(self.var)
+                self.abac.VectorBare[nrBaraAux].recolorBara()
                 diferenta = 10 + diferenta
 
                 for x in range(0, diferenta):
                     self.abac.VectorBare[nrBara].addOneBall()
 
-                self.abac.VectorBare[nrBara].recolorBara()
+
             else:
                 self.buttonNext.wait_variable(self.var)
 
                 for x in range(0, cifraAux):
                     self.abac.VectorBare[nrBara].removeOneBall()
-            self.abac.VectorBare[nrBara].recolorBara()
+
             numar = int(numar / 10)
             nrBara = nrBara + 1
 
@@ -193,15 +196,13 @@ class Menu:
 
         while nrScazator > 0:
             if self.abac.VectorBare[nrBara].isEmpty():
-                self.abac.VectorBare[nrBara].moveBalls(0)
-                self.abac.VectorBare[nrBara].recolorBara()
+
                 nrBaraAux = nrBara + 1
 
                 while self.abac.VectorBare[nrBaraAux].isEmpty():
                     self.abac.VectorBare[nrBaraAux].moveBalls(1)
-                    self.abac.VectorBare[nrBaraAux].recolorBara()
                     nrBaraAux = nrBaraAux + 1
-
+                self.buttonNext.wait_variable(self.var)
                 self.abac.VectorBare[nrBaraAux].removeOneBall()
                 self.abac.VectorBare[nrBaraAux].makeTransportLastUnMovedBall()
                 self.buttonNext.wait_variable(self.var)
@@ -210,7 +211,7 @@ class Menu:
                 self.abac.VectorBare[nrBara].moveBalls(0)
 
             self.abac.VectorBare[nrBara].removeOneBall()
-            self.abac.VectorBare[nrBara].recolorBara()
+
             nrScazator = nrScazator - 1
 
     def setareStareButoane(self, newState):
@@ -280,7 +281,7 @@ class Menu:
         op2 = op2 - 1
         self.buttonNext.wait_variable(self.var)
         self.abac.VectorBare[0].removeOneBall()
-        self.abac.VectorBare[0].recolorBara()
+
 
         while op2 > 0:
             op2 = op2 - 1
@@ -303,13 +304,13 @@ class Menu:
         self.eroare.config(text="Final apasa pe result")
 
     def switch(self, optiune, op1, op2):
-        if optiune == "+":
+        if optiune == "adunare":
             self.adunare(op1, op2)
-        elif optiune == "-":
+        elif optiune == "scadere":
             self.scadere(op1, op2)
-        elif optiune == "*":
+        elif optiune == "inmultire":
             self.inmultire(op1, op2)
-        elif optiune == "/":
+        elif optiune == "impartire":
             self.impartire(op1, op2)
         else:
             print("something went wrong2")

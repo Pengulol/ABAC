@@ -19,7 +19,6 @@ class Bara:
 
     def recolorBara(self):
         for x in range(0, 10):
-
             self.VectorBile[x].changeColor()
 
 
@@ -28,7 +27,7 @@ class Bara:
 
             if x == 9:
                 self.VectorBile[9].moveToRight()
-                self.VectorBile[x].isHighlighted = True
+
                 return
             if self.VectorBile[x].isMoved is True:
                 return

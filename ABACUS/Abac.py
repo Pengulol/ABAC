@@ -9,7 +9,7 @@ class Abac:
         Y = 140
         self.toggleImpartire = False
         self.toggleMouse = True
-
+        self.lastTransportPlace: int
         self.canvas = canvas
         self.canvas.create_rectangle(X1 - 30, 100, X1, 1050, fill="#90453A")
         self.canvas.create_rectangle(X2, 100, X2 + 30, 1050, fill="#90453A")
@@ -33,7 +33,7 @@ class Abac:
 
                                 self.toggleImpartire = False
                                 bara.moveBalls(bila.nrBila)
-                                bara.recolorBara()
+
 
                                 break
                         break
@@ -49,7 +49,7 @@ class Abac:
             for x in range(0, nrBile, +1):
                 self.VectorBare[teavaCurenta].addOneBall()
             aux = int(aux / 10)
-            self.VectorBare[teavaCurenta].recolorBara()
+
             teavaCurenta = teavaCurenta + 1
 
     def setareNumarJos(self, numar):
@@ -61,7 +61,7 @@ class Abac:
             for x in range(0, nrBile, +1):
                 self.VectorBare[teavaCurenta].addOneBall()
             aux = int(aux / 10)
-            self.VectorBare[teavaCurenta].recolorBara()
+
             teavaCurenta = teavaCurenta - 1
 
     def repairAdunare(self):
@@ -79,7 +79,7 @@ class Abac:
     def resetBara(self, numarBara):
         if self.VectorBare[numarBara].VectorBile[9].isMoved:
             self.VectorBare[numarBara].moveBalls(9)
-            self.VectorBare[numarBara].recolorBara()
+
 
     def resetAbac(self):
         for bara in self.VectorBare:
